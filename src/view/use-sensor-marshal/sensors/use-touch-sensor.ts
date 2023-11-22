@@ -368,8 +368,16 @@ export default function useTouchSensor(api: SensorAPI) {
       // Old behaviour:
       // https://gist.github.com/parris/dda613e3ae78f14eb2dc9fa0f4bfce3d
       // https://stackoverflow.com/questions/33298828/touch-move-event-dont-fire-after-touch-start-target-is-removed
-      const unbindTarget = bindEvents(getWindow(), getHandleBindings(args), options);
-      const unbindWindow = bindEvents(getWindow(), getWindowBindings(args), options);
+      const unbindTarget = bindEvents(
+        getWindow(),
+        getHandleBindings(args),
+        options,
+      );
+      const unbindWindow = bindEvents(
+        getWindow(),
+        getWindowBindings(args),
+        options,
+      );
 
       unbindEventsRef.current = function unbindAll() {
         unbindTarget();

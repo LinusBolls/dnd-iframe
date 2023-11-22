@@ -1,7 +1,7 @@
 // We have window and document check because some
 // tests do not run with browser globals enabled
 
-import getDocument from "../../src/view/get-document";
+import getDocument from '../../src/view/get-document';
 
 if (typeof window !== 'undefined') {
   // overriding these properties in jsdom to allow them to be controlled

@@ -36,7 +36,7 @@ function getWindowScrollBinding(update: () => void): UIEventBinding {
       // On a window scroll the event.target should be the window or the document.
       // If this is not the case then it is not a 'window' scroll event and can be ignored
       if (event.target !== window && event.target !== getDocument()) {
-        console.log('[dnd-iframe][getWindowScrollBinding] not updating')
+        console.log('[dnd-iframe][getWindowScrollBinding] not updating');
         return;
       }
 

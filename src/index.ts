@@ -66,4 +66,4 @@ export {
 // Utils
 export { resetServerContext } from './view/drag-drop-context';
 
-console.log("[dnd-iframe][index] loaded");
+console.log('[dnd-iframe][index] loaded');
