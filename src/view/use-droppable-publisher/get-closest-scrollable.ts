@@ -1,6 +1,7 @@
 import { invariant } from '../../invariant';
 import { warning } from '../../dev-warning';
 import getBodyElement from '../get-body-element';
+import getDocument from '../get-document';
 
 interface Overflow {
   overflowX: string;
@@ -38,7 +39,7 @@ const isBodyScrollable = (): boolean => {
   }
 
   const body: HTMLBodyElement = getBodyElement();
-  const html: HTMLElement | null = document.documentElement;
+  const html: HTMLElement | null = getDocument().documentElement;
   invariant(html);
 
   // 1. The `body` has `overflow-[x|y]: auto | scroll`
@@ -76,12 +77,12 @@ const getClosestScrollable = (el?: HTMLElement | null): HTMLElement | null => {
   }
 
   // not allowing us to go higher then body
-  if (el === document.body) {
+  if (el === getBodyElement()) {
     return isBodyScrollable() ? el : null;
   }
 
   // Should never get here, but just being safe
-  if (el === document.documentElement) {
+  if (el === getDocument().documentElement) {
     return null;
   }
 

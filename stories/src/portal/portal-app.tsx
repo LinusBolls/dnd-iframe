@@ -14,6 +14,8 @@ import { invariant } from '../../../src/invariant';
 import reorder from '../reorder';
 import { grid } from '../constants';
 import type { Quote } from '../types';
+import getBodyElement from '../../../src/view/get-body-element';
+import getDocument from '../../../src/view/get-document';
 
 interface ItemProps {
   provided: DraggableProvided;
@@ -21,12 +23,12 @@ interface ItemProps {
   quote: Quote;
 }
 
-const portal: HTMLElement = document.createElement('div');
+const portal: HTMLElement = getDocument().createElement('div');
 portal.classList.add('my-super-cool-portal');
 
-invariant(document.body, 'body not ready for portal creation!');
+invariant(getBodyElement(), 'body not ready for portal creation!');
 
-document.body.appendChild(portal);
+getBodyElement().appendChild(portal);
 
 interface SimpleQuoteProps {
   inPortal: boolean;

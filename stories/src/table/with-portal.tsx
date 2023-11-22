@@ -16,6 +16,8 @@ import { invariant } from '../../../src/invariant';
 import reorder from '../reorder';
 import { grid } from '../constants';
 import type { Quote } from '../types';
+import getBodyElement from '../../../src/view/get-body-element';
+import getDocument from '../../../src/view/get-document';
 
 const Table = styled.table<{ layout: Property.TableLayout }>`
   width: 500px;
@@ -176,7 +178,7 @@ interface TableRowProps {
 
 // Using a table as the portal so that we do not get react
 // warnings when mounting a tr element
-const table: HTMLElement = document.createElement('table');
+const table: HTMLElement = getDocument().createElement('table');
 table.classList.add('my-super-cool-table-portal');
 Object.assign(table.style, {
   margin: '0',
@@ -185,12 +187,12 @@ Object.assign(table.style, {
   height: '0',
   width: '0',
 });
-const tbody: HTMLElement = document.createElement('tbody');
+const tbody: HTMLElement = getDocument().createElement('tbody');
 table.appendChild(tbody);
 
-invariant(document.body, 'document.body required for example');
+invariant(getBodyElement(), 'document.body required for example');
 
-document.body.appendChild(table);
+getBodyElement().appendChild(table);
 
 const IsDraggingContext = React.createContext<boolean>(false);
 
@@ -312,13 +314,13 @@ export default class TableApp extends Component<AppProps, AppState> {
       return;
     }
 
-    const range: Range = document.createRange();
+    const range: Range = getDocument().createRange();
     range.selectNode(tableRef);
     window?.getSelection()?.addRange(range);
 
     const wasCopied: boolean = (() => {
       try {
-        const result: boolean = document.execCommand('copy');
+        const result: boolean = getDocument().execCommand('copy');
         return result;
       } catch (e) {
         return false;

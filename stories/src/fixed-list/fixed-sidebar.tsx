@@ -14,6 +14,8 @@ import { grid } from '../constants';
 import { getQuotes } from '../data';
 import QuoteItem from '../primatives/quote-item';
 import { invariant } from '../../../src/invariant';
+import getBodyElement from '../../../src/view/get-body-element';
+import getDocument from '../../../src/view/get-document';
 
 const sidebarWidth = 300;
 
@@ -35,12 +37,12 @@ interface ListProps {
   quotes: Quote[];
 }
 
-const sidebarPortal: HTMLElement = document.createElement('div');
+const sidebarPortal: HTMLElement = getDocument().createElement('div');
 sidebarPortal.classList.add('sidebar-portal');
 
-invariant(document.body, 'body not ready for portal creation!');
+invariant(getBodyElement(), 'body not ready for portal creation!');
 
-document.body.appendChild(sidebarPortal);
+getBodyElement().appendChild(sidebarPortal);
 
 class Sidebar extends React.Component<ListProps> {
   render() {

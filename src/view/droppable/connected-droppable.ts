@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import memoizeOne from 'memoize-one';
 import { FunctionComponent } from 'react';
-import { invariant } from '../../invariant';
 import type {
   State,
   DroppableId,
@@ -32,11 +31,7 @@ import { updateViewportMaxScroll as updateViewportMaxScrollAction } from '../../
 import isDragging from '../../state/is-dragging';
 import StoreContext from '../context/store-context';
 import whatIsDraggedOverFromResult from '../../state/droppable/what-is-dragged-over-from-result';
-
-function getBody(): HTMLElement {
-  invariant(document.body, 'document.body is not ready');
-  return document.body;
-}
+import getBodyElement from '../get-body-element';
 
 const defaultProps: DefaultProps = {
   mode: 'standard',
@@ -46,7 +41,7 @@ const defaultProps: DefaultProps = {
   isCombineEnabled: false,
   ignoreContainerClipping: false,
   renderClone: null,
-  getContainerForClone: getBody,
+  getContainerForClone: getBodyElement,
 };
 
 const attachDefaultPropsToOwnProps = (ownProps: InternalOwnProps) => {

@@ -12,6 +12,8 @@ import { invariant } from '../../../src/invariant';
 import type { Task as TaskType } from '../types';
 import { grid, borderRadius } from '../constants';
 import BlurContext from './blur-context';
+import getBodyElement from '../../../src/view/get-body-element';
+import getDocument from '../../../src/view/get-document';
 
 interface Props {
   task: TaskType;
@@ -36,10 +38,10 @@ const Container = styled.div<ContainerProps>`
 `;
 
 const getPortal = memoizeOne((): HTMLElement => {
-  invariant(document);
-  const body: HTMLElement = document.body;
+  invariant(getDocument());
+  const body: HTMLElement = getBodyElement();
   invariant(body);
-  const el: HTMLElement = document.createElement('div');
+  const el: HTMLElement = getDocument().createElement('div');
   el.className = 'rfd-portal';
   body.appendChild(el);
   return el;

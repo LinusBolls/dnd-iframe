@@ -8,15 +8,16 @@ import getStyles from './get-styles';
 import type { Styles } from './get-styles';
 import { prefix } from '../data-attributes';
 import useLayoutEffect from '../use-isomorphic-layout-effect';
+import getDocument from '../get-document';
 
 const getHead = (): HTMLHeadElement => {
-  const head: HTMLHeadElement | null = document.querySelector('head');
+  const head: HTMLHeadElement | null = getDocument().querySelector('head');
   invariant(head, 'Cannot find the head to append a style to');
   return head;
 };
 
 const createStyleEl = (nonce?: string): HTMLStyleElement => {
-  const el: HTMLStyleElement = document.createElement('style');
+  const el: HTMLStyleElement = getDocument().createElement('style');
   if (nonce) {
     el.setAttribute('nonce', nonce);
   }
