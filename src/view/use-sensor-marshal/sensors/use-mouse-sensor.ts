@@ -21,6 +21,7 @@ import preventStandardKeyEvents from './util/prevent-standard-key-events';
 import supportedPageVisibilityEventName from './util/supported-page-visibility-event-name';
 import useLayoutEffect from '../../use-isomorphic-layout-effect';
 import { noop } from '../../../empty';
+import getWindow from '../../get-window';
 
 // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
 export const primaryButton = 0;
@@ -312,7 +313,7 @@ export default function useMouseSensor(api: SensorAPI) {
       };
 
       unbindEventsRef.current = bindEvents(
-        window,
+        getWindow(),
         [preventForcePressBinding, startCaptureBinding],
         options,
       );
@@ -355,7 +356,7 @@ export default function useMouseSensor(api: SensorAPI) {
         },
       });
 
-      unbindEventsRef.current = bindEvents(window, bindings, options);
+      unbindEventsRef.current = bindEvents(getWindow(), bindings, options);
     },
     [cancel, stop],
   );

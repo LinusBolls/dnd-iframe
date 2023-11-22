@@ -17,6 +17,7 @@ import bindEvents from '../../event-bindings/bind-events';
 import preventStandardKeyEvents from './util/prevent-standard-key-events';
 import supportedPageVisibilityEventName from './util/supported-page-visibility-event-name';
 import useLayoutEffect from '../../use-isomorphic-layout-effect';
+import getWindow from '../../get-window';
 
 function noop() {}
 
@@ -203,7 +204,7 @@ export default function useKeyboardSensor(api: SensorAPI) {
 
         // bind dragging listeners
         unbindEventsRef.current = bindEvents(
-          window,
+          getWindow(),
           getDraggingBindings(actions, stop),
           { capture: true, passive: false },
         );
@@ -222,7 +223,7 @@ export default function useKeyboardSensor(api: SensorAPI) {
       };
 
       unbindEventsRef.current = bindEvents(
-        window,
+        getWindow(),
         [startCaptureBinding],
         options,
       );

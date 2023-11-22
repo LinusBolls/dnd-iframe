@@ -18,6 +18,7 @@ import * as keyCodes from '../../key-codes';
 import supportedPageVisibilityEventName from './util/supported-page-visibility-event-name';
 import { noop } from '../../../empty';
 import useLayoutEffect from '../../use-isomorphic-layout-effect';
+import getWindow from '../../get-window';
 
 type TouchWithForce = Touch & {
   force: number;
@@ -314,7 +315,7 @@ export default function useTouchSensor(api: SensorAPI) {
       };
 
       unbindEventsRef.current = bindEvents(
-        window,
+        getWindow(),
         [startCaptureBinding],
         options,
       );
@@ -367,8 +368,8 @@ export default function useTouchSensor(api: SensorAPI) {
       // Old behaviour:
       // https://gist.github.com/parris/dda613e3ae78f14eb2dc9fa0f4bfce3d
       // https://stackoverflow.com/questions/33298828/touch-move-event-dont-fire-after-touch-start-target-is-removed
-      const unbindTarget = bindEvents(window, getHandleBindings(args), options);
-      const unbindWindow = bindEvents(window, getWindowBindings(args), options);
+      const unbindTarget = bindEvents(getWindow(), getHandleBindings(args), options);
+      const unbindWindow = bindEvents(getWindow(), getWindowBindings(args), options);
 
       unbindEventsRef.current = function unbindAll() {
         unbindTarget();
@@ -446,7 +447,7 @@ export default function useTouchSensor(api: SensorAPI) {
   // touchmove event handlers to actually work
   // https://github.com/atlassian/react-beautiful-dnd/issues/1374
   useLayoutEffect(function webkitHack() {
-    const unbind = bindEvents(window, [
+    const unbind = bindEvents(getWindow(), [
       {
         eventName: 'touchmove',
         // using a new noop function for each usage as a single `removeEventListener()`

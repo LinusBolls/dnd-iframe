@@ -49,6 +49,7 @@ import { noop } from '../../empty';
 import findClosestDraggableIdFromEvent from './find-closest-draggable-id-from-event';
 import findDraggable from '../get-elements/find-draggable';
 import bindEvents from '../event-bindings/bind-events';
+import getWindow from '../get-window';
 
 function preventDefault(event: Event) {
   event.preventDefault();
@@ -240,7 +241,7 @@ function tryStart({
 
       // block next click if requested
       if (options.shouldBlockNextClick) {
-        const unbind = bindEvents(window, [
+        const unbind = bindEvents(getWindow(), [
           {
             eventName: 'click',
             fn: preventDefault,

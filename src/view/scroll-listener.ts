@@ -6,6 +6,7 @@ import type { UIEventBinding } from './event-bindings/event-types';
 import getWindowScroll from './window/get-window-scroll';
 import { noop } from '../empty';
 import getDocument from './get-document';
+import getWindow from './get-window';
 
 type OnWindowScroll = (newScroll: Position) => void;
 
@@ -60,7 +61,7 @@ export default function getScrollListener({ onWindowScroll }: Args): Result {
 
   function start() {
     invariant(!isActive(), 'Cannot start scroll listener when already active');
-    unbind = bindEvents(window, [binding]);
+    unbind = bindEvents(getWindow(), [binding]);
   }
   function stop() {
     invariant(isActive(), 'Cannot stop scroll listener when not active');

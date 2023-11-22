@@ -3,6 +3,7 @@ import type { State } from '../../../types';
 import type { Middleware } from '../../store-types';
 import type { EventBinding } from '../../../view/event-bindings/event-types';
 import bindEvents from '../../../view/event-bindings/bind-events';
+import getWindow from '../../../view/get-window';
 
 const dropAnimationFlushOnScrollMiddleware: Middleware = (store) => {
   let unbind: (() => void) | null = null;
@@ -56,7 +57,7 @@ const dropAnimationFlushOnScrollMiddleware: Middleware = (store) => {
     // It leads to funny drop positions :(
     frameId = requestAnimationFrame(() => {
       frameId = null;
-      unbind = bindEvents(window, [binding]);
+      unbind = bindEvents(getWindow(), [binding]);
     });
   };
 };
